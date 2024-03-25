@@ -1,0 +1,11 @@
+mlflow
+opencv-python
+Pillow
+Django
+tensorflow-cpu
+openai
+git+https://github.com/facebookresearch/audiocraft#egg=audiocraft
+moviepy
+django-allauth
+transformers
+googletrans==4.0.0rc1

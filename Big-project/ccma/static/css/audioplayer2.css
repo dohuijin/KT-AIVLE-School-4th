@@ -1,0 +1,199 @@
+.music-container-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: 40px;
+}
+
+.music-container:nth-child(3n) {
+    margin-right: 0;
+}
+
+.music-container {
+    width: calc(33.3% - 20px);
+    margin: 0 0 20px;
+    min-width : 400px;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+
+.album-art {
+    width: 100%; /* album-art가 부모 요소에 대해 100%의 폭을 가지도록 설정 */
+    max-width: 100%; /* 부모 요소의 최대 폭을 넘지 않도록 설정 */
+    height: auto; /* 가로 비율에 따라 세로 비율도 조절되도록 설정 */
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .music-container {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .music-container {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+
+
+
+
+
+h1 {
+    color: #6514AB;
+}
+
+#audio-container {
+    max-width: 700px;
+    margin: 20px auto;
+    background-color: #383c4a;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+audio {
+    width: 100%;
+    display: block;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #282c35;
+}
+
+.controls button {
+    background-color: #6514AB;
+    color: #F5f5f5;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+    background-color: #4fa3d1;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #282c35;
+    padding: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #6514AB;
+    width: 0;
+    transition: width 0.2s ease;
+}
+
+.time-display {
+    color: #6514AB;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.volume-control input {
+    width: 80px;
+}
+
+.download-button {
+    background-color: #61dafb;
+    color: #282c35;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: #4fa3d1;
+}
+
+footer {
+    margin-top: 30px;
+    color: #999;
+}
+
+/* 추가된 스타일 */
+
+.controls button i {
+    transition: transform 0.2s ease; /* 아이콘 회전 효과 */
+}
+
+.controls button:hover i {
+    transform: rotate(90deg);
+}
+
+.progress-bar-container:hover .progress-bar {
+    background: linear-gradient(to right, #61dafb, #4fa3d1); /* 호버 시 그라데이션 색상으로 변경 */
+}
+
+.download-button {
+    background-color: #61dafb;
+    color: #282c35;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 색상 변경 및 확대 효과 */
+}
+
+.download-button:hover {
+    background-color: #4fa3d1;
+    transform: scale(1.1);
+}
+
+footer {
+    margin-top: 30px;
+    color: #999;
+    font-size: 14px;
+}

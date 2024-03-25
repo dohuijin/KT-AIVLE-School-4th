@@ -1,0 +1,21 @@
+.progress {
+    width :100%;
+    margin: 20px auto;
+    -webkit-appearance: none;
+    background: transparent;
+}
+
+.progress::-webkit-slider-thumb {  
+    -webkit-appearance: none;           
+    background: #ff0000;
+    cursor: pointer;
+    border: 1px solid #f80101; 
+    height: 36px; 
+    width: 5px;    
+    margin-top: -14px; 
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;   
+    border-radius: 3px;}
+
+.progress::-webkit-slider-runnable-track {background: #ffffff;}
+
+.video::-webkit-media-controls{ display: none !important; }

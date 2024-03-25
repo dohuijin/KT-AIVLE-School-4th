@@ -1,0 +1,44 @@
+<!-- privacy_policy.html -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인정보 처리방침</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        function openInPopup(url) {
+            window.open(url, 'privacyPolicyPopup', 'width=600,height=400,resizable=yes,scrollbars=yes');
+            return false;
+        }
+    </script>
+</head>
+<body>
+
+    <h1>개인정보 처리방침</h1>
+
+    <p>
+        회사명은 회원님의 개인정보를 중요시하며, 정보통신망 이용촉진 및 정보보호 등에 관한 법률을 준수하고 있습니다.
+    </p>
+
+    <!-- 개인정보 처리방침 내용 -->
+
+    <p>
+        <a href="javascript:void(0);" onclick="openInPopup('{{ request.build_absolute_uri }}')">조그마한 팝업 창에서 열기</a>
+    </p>
+
+</body>
+</html>

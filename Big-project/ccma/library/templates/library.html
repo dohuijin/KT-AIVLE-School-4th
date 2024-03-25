@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>CCMA</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <style>
+        
+    </style>
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/audioplayer2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    
+    <!-- Topbar End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="/main/" class="navbar-brand p-0">
+                <h1 class="text-primary m-0"><img src="{% static 'img/logo.png' %}" alt="Logo"></i>CCMA</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="/main/" class="nav-item nav-link">Image</a>
+                    <a href="/video/" class="nav-item nav-link">Video</a>
+                    <a href="/webcam/" class="nav-item nav-link">Webcam</a>
+                    <a href="/main/edit_title/" class="nav-item nav-link">Text</a>
+                    <a href="{% url 'post_list' %}" class="nav-item nav-link">Board</a>
+                    <a href="/library/" class="nav-item nav-link active">Library</a>
+                </div>
+                {% if not user.is_authenticated%}
+                <a href="{% url 'login:login' %}"class="btn btn-primary rounded-pill py-2 px-4">
+                  <span>
+                    Login
+                  </span>
+                </a>
+                &nbsp;&nbsp;
+                <a href="{% url 'login:signup' %}"class="btn btn-primary rounded-pill py-2 px-4">
+                  <span>
+                    Singup
+                  </span>
+                </a>
+                {% else %}
+                <form action="{% url 'login:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary rounded-pill py-2 px-4">Logout</button>
+                </form>
+              {% endif %}
+              &nbsp;&nbsp;
+            </div>
+        </nav>
+
+        <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+            <div class="container py-5">
+                <div class="row justify-content-center py-5">
+                    <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                        <h1 class="display-3 text-white animated slideInDown">Library</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="/main/">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/boards/">Board</a></li>
+                                <li class="breadcrumb-item text-purple active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Music List</title>
+    </head>
+    <body>
+        <div class="music-container-wrapper">
+            {% if user.is_authenticated %}
+                <ul class="music-list">
+                    {% if music_list %}
+                        {% for music in music_list %}
+                            <div class="music-container" data-audio="{{ music.id }}">
+                                <input class="form-control" id='{{ music.id }}' type='text' value="{{music.image_name}}">
+                                <button class="btn btn-primary" onclick="edit_name('{{ music.id }}')">이름 변경</button>
+                                <img src="{{ music.image.url }}" alt="Album Art" class="album-art">
+                                <audio controls class="custom-audio" source src="{{ music.audio.url }}" type="audio/wav" style="display: none;">
+                                    Your browser does not support the audio element.
+                                </audio>
+    
+                                <div class="controls">
+                                    <button onclick="playPause('{{ music.id }}')"><i class="fas fa-play"></i></button>
+                                    <button onclick="stopAudio('{{ music.id }}')"><i class="fas fa-stop"></i></button>
+                                    <div class="progress-bar-container" onclick="seek(event, '{{ music.id }}')">
+                                        <div class="progress-bar" id="progress-bar-{{ music.id }}"></div>
+                                        <div class="time-display" id="time-display-{{ music.id }}">0:00 / 0:00</div>
+                                    </div>
+                                    <div class="volume-control">
+                                        <label for="volume-{{ music.id }}"><i class="fas fa-volume-up"></i></label>
+                                        <input type="range" id="volume-{{ music.id }}" name="volume-{{ music.id }}" min="0" max="1" step="0.1" value="1" oninput="setVolume('{{ music.id }}')">
+                                    </div>
+                                    <button class="download-button" onclick="downloadAudio('{{ music.id }}')"><i class="fas fa-download"></i> Download</button>
+                                </div>
+                                <hr>
+                                <a href="{% url 'library:delete_music' music.id %}" class="btn btn-danger btn-sm">삭제</a>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+    
+                <ul class="video-list">
+                    {% if video_list %}
+                        {% for video in video_list %}
+                            <div class="music-container" data-audio="{{ video.id }}">
+                                <input class="form-control" id='video{{ video.id }}' type='text' value="{{video.video_name}}">
+                                <button class="btn btn-primary" onclick="edit_video_name('{{ video.id }}')">이름 변경</button>
+                                <video style="width: 100%; height: auto;" controls src="{{ video.video_file.url }}" alt="Album Art" class="album-art"></video>
+                                <hr>
+                                <a href="{% url 'library:delete_video' video.id %}" class="btn btn-danger btn-sm">삭제</a>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            {% else %}
+                <h1>Please login and use it</h1>
+            {% endif %}
+        </div>
+    </body>
+    
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        Copyright &copy; <span class="border-bottom">KT Aivle School</span>, All Right Reserved.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <!-- The script tags for jQuery, Bootstrap, etc. remain the same -->
+    <script src="{% static 'js/script2.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        function edit_video_name(video_id) {
+            const formData = new FormData();  
+            var video_name = document.getElementById("video"+video_id).value;
+
+            formData.append('video_id',video_id)
+            formData.append('video_name',video_name);
+            const csrftoken = getCookie('csrftoken');
+    
+            $.ajax({
+              url: '/library/edit_video_name',
+              type: 'POST',
+              data: formData,
+              dataType: 'json',
+              contentType: false,
+              processData: false,
+              headers: {
+                  'X-CSRFToken': csrftoken,
+              },
+              success: function(data) {
+                console.log(data)
+              },
+              error: function(error) {
+                  console.error('Error:', error);
+              }
+          });
+        }
+        function edit_name(music_id) {
+            const formData = new FormData();
+            var music_name = document.getElementById(music_id).value;
+
+            formData.append('music_id',music_id)
+            formData.append('music_name',music_name);
+            const csrftoken = getCookie('csrftoken');
+    
+            $.ajax({
+              url: '/library/edit_music_name',
+              type: 'POST',
+              data: formData,
+              dataType: 'json',
+              contentType: false,
+              processData: false,
+              headers: {
+                  'X-CSRFToken': csrftoken,
+              },
+              success: function(data) {
+                console.log(data)
+              },
+              error: function(error) {
+                  console.error('Error:', error);
+              }
+          });
+          
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+
+</html>

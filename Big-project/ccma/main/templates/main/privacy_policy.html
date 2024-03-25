@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+    <meta charset="utf-8">
+    <title>CCMA</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <style>
+        /* CSS 스타일링을 추가합니다. */
+        #webcam-container {
+            position: relative;
+            width: 640px; /* 웹캠 요소의 폭을 조절합니다. */
+            height: 480px; /* 웹캠 요소의 높이를 조절합니다. */
+            margin: 50px; /* 웹캠 요소의 바깥 여백을 조절합니다. */
+        }
+
+        #webcam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* 웹캠 요소의 폭을 100%로 설정하여 부모 요소에 맞게 조절합니다. */
+            height: 100%; /* 웹캠 요소의 높이를 100%로 설정하여 부모 요소에 맞게 조절합니다. */
+        }
+    </style>
+
+
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    
+
+    <p><a href="{% url 'privacy_policy' %}" style="color: black;">개인정보 처리방침</a></p>
+                            <p style="color: black;">
+                                CCMA는 회원님의 개인정보를 중요시하며, 정보통신망 이용촉진 및 정보보호 등에 관한 법률을 준수하고 있습니다.
+                                여러분의 소중한 개인정보를 보호하기 위해 최선을 다하고 있습니다. 자세한 내용은 개인정보 처리방침을 확인해주세요.
+                            </p>
+                            <p style="color: black;">
+                                1. 수집하는 개인정보의 항목: 회원 가입 시에는 아이디, 비밀번호 등의 필수 정보만을 수집합니다.
+                            </p>
+                            <p style="color: black;">
+                                2. 개인정보의 수집 및 이용 목적: 회원 관리, 서비스 제공, 고객 서비스 개선 등을 위해 개인정보를 수집하고 이용합니다.
+                            </p>
+                            <p style="color: black;">
+                                3. 개인정보의 보유 기간: 회원 탈퇴 시 또는 개인정보 이용 목적 달성 시에는 지체 없이 파기됩니다.
+                            </p>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

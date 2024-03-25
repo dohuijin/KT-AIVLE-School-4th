@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+    <meta charset="utf-8">
+    <title>CCMA</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <style>
+        /* CSS 스타일링을 추가합니다. */
+        #webcam-container {
+            position: relative;
+            width: 640px; /* 웹캠 요소의 폭을 조절합니다. */
+            height: 480px; /* 웹캠 요소의 높이를 조절합니다. */
+            margin: 50px; /* 웹캠 요소의 바깥 여백을 조절합니다. */
+        }
+
+        #webcam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* 웹캠 요소의 폭을 100%로 설정하여 부모 요소에 맞게 조절합니다. */
+            height: 100%; /* 웹캠 요소의 높이를 100%로 설정하여 부모 요소에 맞게 조절합니다. */
+        }
+        .generated-image {
+            width: 50%;
+            height: auto;
+        }
+    </style>
+
+    <script src="{% static 'js/edit_audio_meeting.js' %}"></script>
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/audioplayer.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark px-5 d-none d-lg-block">
+        <div class="row gx-0">
+            <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center" style="height: 45px;">
+                    <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i>kt aivle, Daegu, korea</small>
+                    <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+012 345 6789</small>
+                    <small class="text-light"><i class="fa fa-envelope-open me-2"></i>kt@aivle.com</small>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center text-lg-end">
+                <div class="d-inline-flex align-items-center" style="height: 45px;">
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i class="fab fa-youtube fw-normal"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="/main/" class="navbar-brand p-0">
+                <h1 class="text-primary m-0"><img src="{% static 'img/logo.png' %}" alt="Logo"></i>CCMA</h1>
+                <!-- <img src="img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="/main/" class="nav-item nav-link active">Image</a>
+                    <a href="/video/" class="nav-item nav-link">Video</a>
+                    <a href="/webcam/" class="nav-item nav-link">Webcam</a>
+                    <a href="/main/edit_title/" class="nav-item nav-link">Text</a>
+                    <a href="{% url 'post_list' %}" class="nav-item nav-link">Board</a>
+                    <a href="/library/" class="nav-item nav-link">Library</a>
+                </div>
+                {% if not user.is_authenticated%}
+                <a href="login/login"class="btn btn-primary rounded-pill py-2 px-4">
+                  <span>
+                    Login
+                  </span>
+                </a>
+                &nbsp;&nbsp;
+                <a href="login/signup"class="btn btn-primary rounded-pill py-2 px-4">
+                  <span>
+                    Singup
+                  </span>
+                </a>
+                {% else %}
+                <form action="{% url 'login:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary rounded-pill py-2 px-4">Logout</button>
+                </form>
+              {% endif %}
+             
+                
+
+            </div>
+        </nav>
+
+        <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+            <div class="container py-5">
+                <div class="row justify-content-center py-5">
+                    <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                        <div class="position-relative w-75 mx-auto animated slideInDown">
+
+                        </div>
+
+
+                            <h2>Generated Music</h2>
+                            <span>duration <input type="number" id="set_time" min="5" max="20" value="5"></span><br>
+                            
+                            
+                            <p id = 'meeting_title'>Input_text:{{ text_result }}</p> 
+
+
+                            <hr></hr>
+                            <div class="load-wrapp">
+                                <div class="load-6">
+                                    <h1 style="display:none;" class="l-1 letter">L</h1>
+                                    <h1 style="display:none;" class="l-2 letter">o</h1>
+                                    <h1 style="display:none;" class="l-3 letter">a</h1>
+                                    <h1 style="display:none;" class="l-4 letter">d</h1>
+                                    <h1 style="display:none;" class="l-5 letter">i</h1>
+                                    <h1 style="display:none;" class="l-6 letter">n</h1>
+                                    <h1 style="display:none;" class="l-7 letter">g</h1>
+                                    <h1 style="display:none;" class="l-8 letter">.</h1>
+                                    <h1 style="display:none;" class="l-9 letter">.</h1>
+                                    <h1 style="display:none;" class="l-10 letter">.</h1>
+                                </div>
+                            </div>
+                            <div  id="audio-container">
+                                <audio controls id="custom-audio" src="/media/{{ audio_url }}" type="audio/wav" style="display: none;">
+                                Your browser does not support the audio element.
+                                </audio>
+                                
+                                <div class="controls">
+                                    <button onclick="playPause()"><i class="fas fa-play"></i></button>
+                                    <button onclick="stopAudio()"><i class="fas fa-stop"></i></button>
+                                    <div class="progress-bar-container" onclick="seek(event)">
+                                        <div class="progress-bar" id="progress-bar"></div>
+                                        <div class="time-display" id="time-display">0:00 / 0:00</div>
+                                    </div>
+                                    <div class="volume-control">
+                                        <label for="volume"><i class="fas fa-volume-up"></i></label>
+                                        <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="1" oninput="setVolume()">
+                                    </div>
+                                    <button class="download-button" onclick="downloadAudio()"><i class="fas fa-download"></i> Download</button>
+                                </div>
+                            
+                                <!-- 다운로드 버튼 추가 -->
+                                <a id='download_audio' href="/media/{{ audio_url }}" download="generated_music.wav">Download</a>
+                            </div>
+                            </div>   
+                        </div>            
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- Navbar & Hero End -->
+
+
+        
+
+   
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/edit_audio_meeting.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script> 
+
+</body>
+
+</html>

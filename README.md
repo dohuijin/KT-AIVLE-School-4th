@@ -12,5 +12,5 @@
 - AIVLE 스쿨 지원 질문, 답변 챗봇
 - 차량 파손여부 분류
 - 수어 번역기
-  # 빅프로젝트
-  - 상황에 맞는 음악 생성 플랫폼(Create Contextual Music with AI)
+# 빅프로젝트
+- 상황에 맞는 음악 생성 플랫폼(Create Contextual Music with AI)
